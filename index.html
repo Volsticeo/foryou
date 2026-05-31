@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FOR YOU!</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤍</text></svg>" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/vault.css" />
+  <link rel="stylesheet" href="css/origin.css" />
+  <link rel="stylesheet" href="css/bugs.css" />
+  <link rel="stylesheet" href="css/star.css" />
+  <link rel="stylesheet" href="css/radio.css" />
+  <link rel="stylesheet" href="css/archive.css" />
+  <link rel="stylesheet" href="css/finale.css" />
+
+  <!-- Sound preloads — put these files in assets/ folder -->
+  <!-- swoosh.mp3, click.mp3, chime.mp3, success.mp3 -->
+  <link rel="preload" href="assets/swoosh.mp3" as="audio" />
+  <link rel="preload" href="assets/click.mp3"  as="audio" />
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+
+</head>
+<body>
+
+  <!-- CUSTOM CURSOR -->
+  <div id="cursor"></div>
+  <div id="cursor-trail"></div>
+
+  <!-- GRAIN -->
+  <div id="grain"></div>
+
+  <!-- CURTAIN -->
+  <div id="curtain"></div>
+
+  <!-- PROGRESS DOTS -->
+  <nav id="progress-dots" aria-label="Page navigation">
+    <div class="pdot" data-page="0"></div>
+    <div class="pdot" data-page="1"></div>
+    <div class="pdot" data-page="2"></div>
+    <div class="pdot" data-page="3"></div>
+    <div class="pdot" data-page="4"></div>
+    <div class="pdot" data-page="5"></div>
+    <div class="pdot" data-page="6"></div>
+  </nav>
+
+  <!-- APP -->
+  <div id="app">
+
+    <!-- ══════════════════════════════════════
+         PAGE 0 — THE VAULT
+    ══════════════════════════════════════ -->
+    <section class="page active" id="page-vault">
+
+      <!-- Backdrop -->
+      <div class="vault-backdrop">
+        <!-- Blurred ambient bg layer -->
+        <div class="vault-backdrop-blur" id="vault-backdrop-blur"></div>
+        <!-- Sharp photo layer -->
+        <div class="vault-backdrop-photo">
+          <img src="assets/hero.jpg" alt="" id="vault-hero-img" />
+        </div>
+        <div class="vault-backdrop-overlay"></div>
+      </div>
+
+      <!-- Aurora -->
+      <div class="aurora vault-aurora"></div>
+
+      <!-- Glitch flash -->
+      <div class="vault-glitch" id="vault-glitch"></div>
+
+      <!-- Content -->
+      <div class="vault-layout">
+
+        <!-- vault ring removed -->
+
+        <div class="vault-input-wrap" id="vault-input-wrap">
+          <div class="vault-hint" id="vault-hint"></div>
+
+          <!-- Custom dot display — 8 fixed slots -->
+          <div class="vault-dots-wrap" id="vault-dots-wrap" tabindex="0">
+            <div class="vault-dot-slot" data-idx="0"></div>
+            <div class="vault-dot-slot" data-idx="1"></div>
+            <div class="vault-dot-slot" data-idx="2"></div>
+            <div class="vault-dot-slot" data-idx="3"></div>
+            <div class="vault-dot-slot" data-idx="4"></div>
+            <div class="vault-dot-slot" data-idx="5"></div>
+            <div class="vault-dot-slot" data-idx="6"></div>
+            <div class="vault-dot-slot" data-idx="7"></div>
+          </div>
+          <!-- Hidden real input for keyboard focus on mobile -->
+          <input
+            class="vault-input-hidden"
+            id="vault-input"
+            type="text"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            maxlength="8"
+            inputmode="text"
+          />
+
+          <div class="vault-wrong" id="vault-wrong">Kya Yar! Try Harder :)</div>
+          <button class="vault-submit" id="vault-submit">unlock</button>
+          <div class="vault-tagline" id="vault-tagline">
+            ANUUUU!!, I have been waiting for YOU! 🫵
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════
+         PAGE 1 — ORIGIN STORY
+    ══════════════════════════════════════ -->
+    <section class="page" id="page-origin">
+
+      <div class="aurora origin-aurora"></div>
+
+      <!-- Boot overlay -->
+      <div class="origin-boot" id="origin-boot">
+        <div class="boot-label" id="boot-label">Initialising...</div>
+        <div class="boot-bar-track">
+          <div class="boot-bar-fill" id="boot-bar"></div>
+        </div>
+        <div class="boot-sub" id="boot-sub"></div>
+      </div>
+
+      <!-- Visual Novel -->
+      <div class="origin-layout" id="origin-layout">
+
+        <header class="origin-header">
+          <div class="origin-scene" id="origin-scene">Where it all started!</div>
+          <div class="origin-counter" id="origin-counter">1 / 8</div>
+        </header>
+
+        <div class="origin-body">
+          <div class="origin-row">
+            <div class="origin-portrait">S</div>
+            <div class="origin-bubble">
+              <div class="origin-speaker">You</div>
+              <div class="origin-text" id="origin-text"><span class="origin-cursor"></span></div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="origin-footer">
+          <div class="origin-hint" id="origin-hint">tap to continue</div>
+          <button class="origin-btn" id="origin-btn">tap to continue</button>
+          <div class="origin-progress" id="origin-progress" style="width:0%"></div>
+        </footer>
+
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════
+         PAGE 2 — BUG I CAN'T FIX
+    ══════════════════════════════════════ -->
+    <section class="page" id="page-bugs">
+
+      <div class="aurora bugs-aurora"></div>
+
+      <!-- Crash flash -->
+      <div class="bugs-crash-flash" id="bugs-crash-flash"></div>
+
+      <!-- Terminal -->
+      <div class="bugs-terminal" id="bugs-terminal">
+        <div class="term-line dim"  id="tl0">$ system --check dependencies</div>
+        <div class="term-line white" id="tl1">checking installed processes...</div>
+        <div class="term-line green" id="tl2">found: 1 unresolved process — [her]</div>
+        <div class="term-line red"   id="tl3">FATAL ERROR: cannot uninstall. process has root access.</div>
+        <div class="term-line dim"   id="tl4">attempting force quit... <span style="color:#ff5050;">failed</span></div>
+        <div class="term-line white" id="tl5">generating changelog... <span class="term-cursor-blink"></span></div>
+      </div>
+
+      <!-- Main page -->
+      <div class="bugs-main" id="bugs-main">
+
+        <header class="bugs-header">
+          <div>
+            <div class="bugs-eyebrow">changelog</div>
+            <div class="bugs-title">Bug I Can't Fix</div>
+          </div>
+          <div class="bugs-commit-count" id="bugs-commit-count">click each entry to expand</div>
+        </header>
+
+        <div class="bugs-list" id="bugs-list">
+          <!-- injected by JS -->
+        </div>
+
+        <footer class="bugs-footer">
+          <button class="bugs-close-btn" id="bugs-close-btn" disabled>CLOSE ISSUE?</button>
+        </footer>
+
+        <!-- Bugs popup modal -->
+        <div class="bugs-modal-overlay" id="bugs-modal-overlay">
+          <div class="bugs-modal">
+            <div class="bugs-modal-icon">⚠</div>
+            <div class="bugs-modal-title">Error 403</div>
+            <div class="bugs-modal-msg">Cannot resolve.<br>You are the system now.</div>
+            <button class="bugs-modal-btn" id="bugs-modal-btn">acknowledged →</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════
+         PAGE 3 — SEND HER A SIGN
+    ══════════════════════════════════════ -->
+    <section class="page" id="page-star">
+
+      <canvas id="star-canvas"></canvas>
+
+      <!-- Prompt -->
+      <div class="star-prompt" id="star-prompt">
+        <div class="star-prompt-text">Make a wish.</div>
+        <input
+          class="star-input"
+          id="star-input"
+          type="text"
+          placeholder="type anything..."
+          autocomplete="off"
+          maxlength="80"
+        />
+        <button class="star-send-btn" id="star-send-btn">send it</button>
+      </div>
+
+      <!-- Noted -->
+      <div class="star-noted" id="star-noted">noted. it's safe with me.</div>
+
+      <!-- Messages -->
+      <div class="star-msg star-msg-1" id="star-line1"></div>
+      <div class="star-msg star-msg-2" id="star-line2"></div>
+
+      <!-- Next -->
+      <button class="star-next-btn" id="star-next-btn">next →</button>
+
+    </section>
+
+
+    <!-- ══════════════════════════════════════
+         PAGE 4 — TUNE IN
+    ══════════════════════════════════════ -->
+    <section class="page" id="page-radio">
+
+      <div class="aurora radio-aurora"></div>
+
+      <div class="radio-layout">
+
+        <div class="radio-eyebrow" id="radio-eyebrow">tune in</div>
+
+        <div class="radio-unit" id="radio-unit">
+
+          <!-- Frequency display -->
+          <div class="radio-freq-display">
+            <div class="radio-freq-label">frequency</div>
+            <div class="radio-freq-num" id="radio-freq-num">
+              88.0<span class="radio-freq-mhz">FM</span>
+            </div>
+          </div>
+
+          <!-- Waveform -->
+          <div class="radio-waveform">
+            <canvas id="waveform-canvas"></canvas>
+          </div>
+
+          <!-- Dial track -->
+          <div class="radio-dial-track">
+            <div class="dial-track-bg">
+              <div class="dial-track-fill" id="dial-track-fill"></div>
+            </div>
+            <div class="dial-ticks">
+              <span class="dial-tick">88</span>
+              <span class="dial-tick">90</span>
+              <span class="dial-tick highlight">90</span>
+              <span class="dial-tick">92</span>
+              <span class="dial-tick">96</span>
+              <span class="dial-tick">100</span>
+              <span class="dial-tick">104</span>
+            </div>
+          </div>
+
+          <!-- Knob -->
+          <div class="dial-knob-wrap">
+            <div class="dial-knob" id="dial-knob">
+              <div class="dial-indicator" id="dial-indicator"></div>
+            </div>
+            <div class="dial-hint" id="dial-hint">drag to tune</div>
+          </div>
+
+        </div>
+
+        <!-- Station info -->
+        <div class="radio-station-info" id="radio-station-info">
+          <div class="radio-station-name">90.0 — Hall of Memories!</div>
+          <div class="radio-station-sub">Now Playing · Hamsadhwani</div>
+        </div>
+
+        <button class="radio-next-btn" id="radio-next-btn">next →</button>
+
+      </div>
+
+      <!-- Audio -->
+      <audio id="radio-audio" src="assets/feel.mp3" preload="auto" loop></audio>
+
+    </section>
+
+
+    <!-- ══════════════════════════════════════
+         PAGE 5 — THE ARCHIVE
+    ══════════════════════════════════════ -->
+    <section class="page" id="page-archive">
+
+      <div class="aurora archive-aurora"></div>
+
+      <div class="archive-layout">
+
+        <header class="archive-header">
+          <div class="archive-title">Evidence.</div>
+          <div class="archive-count" id="archive-count">14 polaroids</div>
+        </header>
+
+        <div class="archive-scatter" id="archive-scatter">
+          <!-- injected by JS -->
+        </div>
+
+        <!-- Lightbox -->
+        <div class="archive-lightbox" id="archive-lightbox">
+          <div class="lb-card" id="lb-card">
+            <button class="lb-close" id="lb-close">×</button>
+            <img class="lb-img" id="lb-img" src="" alt="" />
+            <div class="lb-caption" id="lb-caption"></div>
+            <div class="lb-dots" id="lb-dots"></div>
+          </div>
+        </div>
+
+        <footer class="archive-footer">
+          <div class="archive-hint">click any photo to open it</div>
+          <button class="archive-next-btn" id="archive-next-btn">next →</button>
+        </footer>
+
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════
+         PAGE 6 — FINAL BOSS
+    ══════════════════════════════════════ -->
+    <section class="page" id="page-finale">
+
+      <div class="aurora finale-aurora"></div>
+      <canvas id="confetti-canvas"></canvas>
+
+      <!-- Boss bar -->
+      <div class="finale-boss-bar" id="finale-boss-bar">
+        <div class="boss-label">FINAL BOSS: Turning 22!!</div>
+        <div class="boss-health-track">
+          <div class="boss-health-fill" id="boss-health-fill"></div>
+        </div>
+      </div>
+
+      <!-- Explosion section -->
+      <div class="finale-section" id="finale-explosion">
+        <div class="finale-explosion-text" id="finale-explosion-text">
+          Happy Birthday,<br>MY LOVE!
+        </div>
+      </div>
+
+      <!-- Message section -->
+      <div class="finale-section" id="finale-msg-section">
+        <div class="finale-message-wrap">
+          <div class="finale-heading">Happy Birthday, MY LOVE!</div>
+          <div class="finale-message">
+            Wish You a Very Happy and Great Birthday baba, I love You So much! Take Care.<br><br>
+            And as always, I'm just here! Always by your side!<br><br>
+            Never Forget, <em>"GOOD THING, TAKES TIME"</em>
+          </div>
+          <button class="origin-btn" id="finale-credits-btn" style="margin-top:8px;">roll credits →</button>
+        </div>
+      </div>
+
+      <!-- Credits section -->
+      <div class="finale-credits" id="finale-credits">
+        <div class="credits-scroll" id="credits-scroll">
+          <!-- injected by JS -->
+        </div>
+      </div>
+
+      <!-- Final frame -->
+      <div class="finale-final-frame" id="finale-final-frame">
+        <div class="finale-final-bg" id="finale-final-bg"></div>
+        <div class="finale-final-photo-wrap">
+          <img class="finale-final-photo" id="finale-final-photo" src="assets/her.jpg" alt="Anukkriti" />
+        </div>
+        <div class="finale-final-overlay"></div>
+        <div class="finale-final-text">
+          <div class="finale-final-words">You have reached the end of your journey! Till the Next Time</div>
+          <div class="finale-final-name">Anukkriti.</div>
+          <button class="finale-finish-btn" id="finale-finish-btn">close ×</button>
+        </div>
+      </div>
+
+    </section>
+
+  </div><!-- /#app -->
+
+  <!-- JS -->
+  <script src="js/app.js"></script>
+  <script src="js/vault.js"></script>
+  <script src="js/origin.js"></script>
+  <script src="js/bugs.js"></script>
+  <script src="js/star.js"></script>
+  <script src="js/radio.js"></script>
+  <script src="js/archive.js"></script>
+  <script src="js/finale.js"></script>
+
+</body>
+</html>
