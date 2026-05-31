@@ -1,0 +1,171 @@
+/* ============================================================
+   PAGE 3 — SEND HER A SIGN
+   ============================================================ */
+
+#page-star {
+  background: #04030a;
+}
+
+/* ── CANVAS ── */
+#star-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* ── PROMPT ── */
+.star-prompt {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  transition: opacity 0.8s ease;
+}
+
+.star-prompt.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.star-prompt-text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(32px, 5vw, 56px);
+  color: rgba(244, 242, 238, 0.85);
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+.star-input {
+  background: rgba(255, 255, 255, 0.04);
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  padding: 14px 28px;
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 14px;
+  outline: none;
+  width: 280px;
+  text-align: center;
+  letter-spacing: 0.06em;
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.star-input:focus {
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.star-input::placeholder {
+  color: rgba(255, 255, 255, 0.18);
+  font-style: italic;
+}
+
+.star-send-btn {
+  background: transparent;
+  border: 0.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50px;
+  padding: 11px 32px;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: all 0.3s var(--ease-out-expo);
+}
+
+.star-send-btn:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.7);
+  transform: translateY(-2px);
+}
+
+/* ── NOTED ── */
+.star-noted {
+  position: absolute;
+  bottom: 40px;
+  left: 0; right: 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.08em;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  z-index: 10;
+}
+
+.star-noted.show { opacity: 1; }
+
+/* ── STAR MESSAGES ── */
+.star-msg {
+  position: absolute;
+  left: 0; right: 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  opacity: 0;
+  z-index: 10;
+  pointer-events: none;
+  text-shadow:
+    0 0 20px rgba(255, 255, 255, 0.9),
+    0 0 50px rgba(211, 211, 255, 0.5),
+    0 0 90px rgba(211, 211, 255, 0.2);
+  transition: opacity 1.4s ease;
+}
+
+.star-msg.show { opacity: 1; }
+
+.star-msg-1 {
+  font-size: clamp(16px, 2.2vw, 22px);
+  top: 36%;
+}
+
+.star-msg-2 {
+  font-size: clamp(20px, 2.8vw, 30px);
+  top: 48%;
+}
+
+/* ── NEXT BUTTON ── */
+.star-next-btn {
+  position: absolute;
+  bottom: 36px;
+  right: 40px;
+  background: transparent;
+  border: 0.5px solid rgba(211, 211, 255, 0.2);
+  border-radius: 50px;
+  padding: 11px 28px;
+  color: rgba(211, 211, 255, 0.5);
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  z-index: 10;
+  opacity: 0;
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+
+.star-next-btn.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.star-next-btn:hover {
+  border-color: var(--lavender);
+  color: var(--lavender);
+  box-shadow: 0 0 16px rgba(211, 211, 255, 0.15);
+  transform: translateY(-2px);
+}

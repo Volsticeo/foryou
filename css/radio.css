@@ -1,0 +1,315 @@
+/* ============================================================
+   PAGE 4 — TUNE IN
+   ============================================================ */
+
+#page-radio {
+  background: var(--bg);
+}
+
+.radio-aurora {
+  background:
+    radial-gradient(ellipse 55% 45% at 50% 60%, rgba(80, 120, 255, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 35% 30% at 15% 20%, rgba(211, 211, 255, 0.05) 0%, transparent 55%),
+    radial-gradient(ellipse 30% 25% at 85% 30%, rgba(255, 60, 180, 0.05) 0%, transparent 50%);
+  animation: auroraPulse 11s ease-in-out infinite alternate;
+}
+
+/* ── LAYOUT ── */
+.radio-layout {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  gap: 48px;
+}
+
+/* ── EYEBROW ── */
+.radio-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s ease, transform 0.6s var(--ease-out-expo);
+}
+
+.radio-eyebrow.reveal { opacity: 1; transform: translateY(0); }
+
+/* ── RADIO UNIT ── */
+.radio-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  max-width: 480px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease 0.2s, transform 0.8s var(--ease-out-expo) 0.2s;
+}
+
+.radio-unit.reveal { opacity: 1; transform: translateY(0); }
+
+/* ── FREQUENCY DISPLAY ── */
+.radio-freq-display {
+  background: rgba(211, 211, 255, 0.055);
+  border: none;
+  border-radius: 16px;
+  padding: 20px 36px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.45),
+    inset 0 1.5px 0 rgba(211,211,255,0.35),
+    inset 1px 0 0 rgba(211,211,255,0.18),
+    inset 0 -1px 0 rgba(211,211,255,0.05);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+}
+
+.radio-freq-display::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(80,120,255,0.04), transparent 60%);
+}
+
+.radio-freq-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 8px;
+}
+
+.radio-freq-num {
+  font-family: var(--font-mono);
+  font-size: clamp(36px, 6vw, 56px);
+  color: var(--blue);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(80, 120, 255, 0.5);
+  transition: color 0.4s, text-shadow 0.4s;
+}
+
+.radio-freq-num.tuned {
+  color: var(--lavender);
+  text-shadow: 0 0 24px rgba(211, 211, 255, 0.6);
+}
+
+.radio-freq-mhz {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--muted);
+  margin-left: 4px;
+  vertical-align: super;
+}
+
+/* ── WAVEFORM ── */
+.radio-waveform {
+  width: 100%;
+  height: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+#waveform-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── DIAL TRACK ── */
+.radio-dial-track {
+  width: 100%;
+  position: relative;
+}
+
+.dial-track-bg {
+  width: 100%;
+  height: 2px;
+  background: var(--border2);
+  border-radius: 2px;
+  position: relative;
+}
+
+.dial-track-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue), var(--lavender));
+  border-radius: 2px;
+  width: 0%;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 6px var(--blue);
+}
+
+.dial-track-fill.tuned {
+  box-shadow: 0 0 10px var(--lavender);
+}
+
+/* range ticks */
+.dial-ticks {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  padding: 0 2px;
+}
+
+.dial-tick {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--dim);
+  letter-spacing: 0.05em;
+}
+
+.dial-tick.highlight {
+  color: var(--lavender);
+}
+
+/* ── DIAL KNOB ── */
+.dial-knob-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.dial-knob {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  border: none;
+  position: relative;
+  cursor: none;
+  box-shadow:
+    0 8px 24px rgba(0,0,0,0.55),
+    inset 0 1.5px 0 rgba(255,255,255,0.3),
+    inset 1px 0 0 rgba(255,255,255,0.15),
+    inset 0 -1px 0 rgba(0,0,0,0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: box-shadow 0.3s;
+  user-select: none;
+}
+
+.dial-knob:hover {
+  box-shadow:
+    0 4px 20px rgba(0,0,0,0.6),
+    0 0 16px rgba(80,120,255,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.dial-knob.tuned {
+  box-shadow:
+    0 4px 20px rgba(0,0,0,0.6),
+    0 0 20px rgba(211,211,255,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+  border-color: rgba(211,211,255,0.2);
+}
+
+.dial-indicator {
+  position: absolute;
+  width: 3px;
+  height: 14px;
+  background: var(--blue);
+  border-radius: 2px;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 6px var(--blue);
+  transform-origin: bottom center;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.dial-knob.tuned .dial-indicator {
+  background: var(--lavender);
+  box-shadow: 0 0 8px var(--lavender);
+}
+
+.dial-hint {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+  text-align: center;
+}
+
+/* ── STATION INFO ── */
+.radio-station-info {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.8s ease, transform 0.8s var(--ease-out-expo);
+  pointer-events: none;
+  background: rgba(211,211,255,0.06);
+  border-radius: 14px;
+  padding: 16px 28px;
+  box-shadow:
+    0 4px 20px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(211,211,255,0.25),
+    inset 1px 0 0 rgba(211,211,255,0.12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.radio-station-info.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.radio-station-name {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(22px, 3vw, 32px);
+  color: var(--lavender);
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 20px rgba(211,211,255,0.4);
+  margin-bottom: 6px;
+}
+
+.radio-station-sub {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+}
+
+/* ── NEXT BUTTON ── */
+.radio-next-btn {
+  background: transparent;
+  border: 0.5px solid rgba(211, 211, 255, 0.2);
+  border-radius: 50px;
+  padding: 12px 32px;
+  color: rgba(211, 211, 255, 0.5);
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.5s ease;
+}
+
+.radio-next-btn.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.radio-next-btn:hover {
+  border-color: var(--lavender);
+  color: var(--lavender);
+  box-shadow: 0 0 16px rgba(211, 211, 255, 0.15);
+  transform: translateY(-2px);
+}
